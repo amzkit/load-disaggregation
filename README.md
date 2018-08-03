@@ -1,9 +1,15 @@
-# NILMTKL: Non-Intrusive Load Monitoring Toolkit Lite
+# Load-disaggregation Python Library
 
-A lite version of non-intrusive load monitoring digested from NILMTK in order to provide a simple load disaggregation function using the disaggregation models provided in the NILMTK.
+The goal of the library is to disaggregate an appliance load from the power meter reading. The library take a load disaggregation models provided in the [NILMTK Documentation](https://github.com/nilmtk/nilmtk/tree/master/docs/manual).
 
-NILMTKL eliminates lots of installation and setting up environment step in the original NILMTK. It simply run in any python environment. Simply import and you are good to go.
+The library is reproduced for those who requires only a load disaggregation function in NILMTK. It eliminates lots of installation and setting up environment step in the original NILMTK. Simply import, pre-process your data and you are good to go.
 
-# Guide
+# Requirement
+1. Python 3 (haven't tested in Python 2)
+2. Series of load meter data (in Watt)
+3. Appliance meter data (in Watt) with the same time line as (2)
+4. Test load meter data
 
+# Beginners Guide
 1. download desired model file from the repo and place into the same folder with your python file
+
