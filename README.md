@@ -15,7 +15,7 @@ This library is reproduced for beginners use. I was new to NILMTK and python env
 4. **[testing house main meter data]** Another house main meter data (in Watt)
 
 # Beginner Guide
-1. importing the desired model
+####1. importing the desired model
   - download desired model file from the repo and place into the same folder with your python file
   - import the desired model in your python file
   
@@ -23,7 +23,7 @@ This library is reproduced for beginners use. I was new to NILMTK and python env
   import .fhmm_model as fhmm
 ```
 
-2. preparing your training data in to the correct format
+####2. preparing your training data in to the correct format
   - **[training house main meter data]** and **[training appliance meter data]** should be stored in the same dataframe (has to be in the same second, you will need to preprocess your data for this in case your data is recorded at different seconds)
   - the dataframe should include column 'power' which is a series of a whole house load meter data.
   - the dataframe should include a column of one appliance meter data. The column can be named anything you would like. The example 'app1'
@@ -39,7 +39,7 @@ This library is reproduced for beginners use. I was new to NILMTK and python env
 ```
 
 
-3. training your model with training house data
+####3. training your model with training house data
   - call function train()
   - arguments of train() are
     - dataframe from previous step (step 2) and a list of appliance
@@ -61,7 +61,7 @@ This library is reproduced for beginners use. I was new to NILMTK and python env
   - you can load this mode to use later from function fhmm.load() to skip the step 2, and 3
   
   
-4. preparing your testing data in to the correct format  
+####4. preparing your testing data in to the correct format  
   - testing data should be stored in a dataframe containing timestamp and power columns
   - the testing dataframe should be similar to below dataframe
   
@@ -75,7 +75,7 @@ This library is reproduced for beginners use. I was new to NILMTK and python env
 ```
  
  
-5. disaggregating the testing house data with the model
+####5. disaggregating the testing house data with the model
   - call function disaggregate()
   - disaggregate() requires dataframe from step 4 
   - timestamp column should be the same Unix Epoc timestamp format (10 digit)
