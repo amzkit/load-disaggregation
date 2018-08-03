@@ -23,7 +23,7 @@ This library is reproduced for beginners use. I was new to NILMTK and python env
   import .fhmm_model as fhmm
 ```
 
-#### 2. preparing your training data in to the correct format
+#### 2. preparing your training data in the correct format
   - **[training house main meter data]** and **[training appliance meter data]** should be stored in the same dataframe (has to be in the same second, you will need to preprocess your data for this in case your data is recorded at different seconds)
   - the dataframe should include column 'power' which is a series of a whole house load meter data.
   - the dataframe should include a column of one appliance meter data. The column can be named anything you would like. The example 'app1'
@@ -61,7 +61,7 @@ This library is reproduced for beginners use. I was new to NILMTK and python env
   - you can load this mode to use later from function fhmm.load() to skip the step 2, and 3
   
   
-#### 4. preparing your testing data in to the correct format  
+#### 4. preparing your testing data in the correct format  
   - testing data should be stored in a dataframe containing timestamp and power columns
   - the testing dataframe should be similar to below dataframe
   
@@ -85,4 +85,4 @@ This library is reproduced for beginners use. I was new to NILMTK and python env
    prediction = fhmm.disaggregate(df)
 ```
   - try prediction.plot() for a quick graph plot
-  - that is it
+  - Done! then you can use the data from prediction to do whatever you would like to
