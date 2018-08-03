@@ -23,7 +23,7 @@ The library is reproduced for those who requires only a load disaggregation func
   - **[training house main meter data]** and **[training appliance meter data]** should be stored in the same dataframe (has to be in the same second, you will need to preprocess your data for this in case your data is recorded at different seconds)
   - the dataframe should include column 'power' which is a series of a whole house load meter data.
   - the dataframe should include a column of one appliance meter data. The column can be named anything you would like. The example 'app1'
-  - the dataframe should have a timestamp column. this timestamp is a Unix Epoc timestamp (10 digit) format
+  - the dataframe should have a timestamp column. this timestamp is a Unix Epoc timestamp format (10 digit)
 
 ```python
   print(df)
@@ -34,16 +34,25 @@ The library is reproduced for those who requires only a load disaggregation func
   ...
 ```
 
-3. training your data with the training house
-   - call function train()
-   - you will need a list of appliance as an argument of the train function
-   - a list of appliance can be a single appliance to train or more
+3. training your model with training house data
+  - call function train()
+  - arguments of train() are
+    - dataframe from previous step and a list of appliance
+  - a list of appliance can be a single appliance to train or more
 
 ```python
    list_of_appliance = ['app1', 'app2', 'app3']
    fhmm = FHMM()
    fhmm.train(df, list_of_appliance)
 ```
-   after training you will get a model which is ready to be tested
-   
-4. testing 
+  - after training you will get a model which is ready to be tested
+  - you can save your model in order to use it next time without training the same data again and again
+
+```python
+   fhmm.save("fhmm_trained_model")
+```
+
+4. disaggregating the testing house data with the model
+  - call function disaggregate()
+  - disaggregate() requires dataframe containing timestamp and power columns
+  - timestamp column should be the same Unix Epoc timestamp format (10 digit)
