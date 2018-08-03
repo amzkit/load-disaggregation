@@ -27,10 +27,10 @@ The library is reproduced for those who requires only a load disaggregation func
 
 ```python
   df
-        power     app1      app2      app3
-  0     23.3      0     0     0
-  1     318.4      295.1     0     0
-  2     318.7      295.4      0     0
+        power     app1	app2	app3
+  0     23.3      0     0	0
+  1     318.4     295.1 0	0
+  2     318.7     295.4 0	0
   ...
 ```
 
