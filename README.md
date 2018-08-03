@@ -6,18 +6,18 @@ The library is reproduced for those who requires only a load disaggregation func
 
 # Requirement
 1. Python 3 (haven't tested in Python 2)
-2. A whole house load meter data (in Watt)
+2. [training house main meter data] A whole house main meter data (in Watt)
   I would recommend at least 1 whole day of data
-3. Appliance meter data (in Watt) of the same house (it should be recorded at the same time of whole house load meter data)
+3. [appliance meter data] Appliance meter data (in Watt) of the same house (it should be recorded at the same time of whole house load meter data)
   Can be more than 1 appliance type, but the more number of appliance meter data you have, the better accurate result will be.
-4. Another house load meter data (in Watt)
+4. [testing house main meter data] Another house main meter data (in Watt)
 
 # Beginners Guide
 1. importing the desired model
   - download desired model file from the repo and place into the same folder with your python file
   - import the desired model in your python file
 ```python
-	import fhmm_model as fhmm
+  import .fhmm_model as fhmm
 ```
 2. preparing your data in to the correct format
   - your load meter data and your appliance data should be stored in the same dataframe
@@ -34,5 +34,16 @@ The library is reproduced for those who requires only a load disaggregation func
   ...
 ```
 
-3. 
+3. training your data with the training house
+   - call function train()
+   - you will need a list of appliance as an argument of the train function
+   - a list can be a single appliance to train or more
 
+```python
+   list_of_appliance = ['app1', 'app2', 'app3']
+   fhmm = FHMM()
+   fhmm.train(df, list_of_appliance)
+```
+   after this you will get a model which is ready to be tested
+   
+4. testing 
