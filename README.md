@@ -2,9 +2,11 @@
 
 The goal of the library is to disaggregate an appliance load from the power meter reading. The library take a load disaggregation models provided in the [NILMTK Documentation](https://github.com/nilmtk/nilmtk/tree/master/docs/manual).
 
-The library is reproduced for those who requires only a load disaggregation function in NILMTK. It eliminates lots of installation and setting up environment step in the original NILMTK. Simply import, pre-process your data and you are good to go.
+For those who requires only a load disaggregation function in NILMTK, Load-disaggregation Python Library eliminates lots of installation and setting up environment step found in the original NILMTK. Simply import, pre-process your data and you are good to go.
 
-This library is reproduced for beginners use. I was new to NILMTK and python environment. With a limited document on NILMTK for a newbie, I spent lots of time to understand the toolkit. I hope this library will save time for any other beginner who is taking the same path as I do.
+**This library is reproduced for beginners use.**
+
+I was looking for a solution to disaggregate loads and found NILMTK to be very promising toolkit to do the job. With a limited document on NILMTK for a newbie like me, I spent lots of time to understand the toolkit, installing environment, learning to use jupyter notebook, etc. I found the toolkit has a lot of embeded features that it is not related to the load disaggregation stuff that I was looking for. The purpose of the toolkit is far beyond than just disaggregating loads. This is why I think it would be useful to reproduce just the part that I was interested in. I hope this library will save time for any other beginner who is taking the same path as I do.
 
 # Requirements
 1. Python 3.6 (haven't tested in Python 2)
