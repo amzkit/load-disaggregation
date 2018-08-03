@@ -4,7 +4,9 @@ The goal of the library is to disaggregate an appliance load from the power mete
 
 The library is reproduced for those who requires only a load disaggregation function in NILMTK. It eliminates lots of installation and setting up environment step in the original NILMTK. Simply import, pre-process your data and you are good to go.
 
-# Requirement
+This library is reproduced for beginners use. I was new to NILMTK and python environment. With a limited document on NILMTK for a newbie, I spent lots of time to understand the toolkit. I hope this library will save time for any other beginner who is taking the same path as I do.
+
+# Requirements
 1. Python 3.6 (haven't tested in Python 2)
 2. **[training house main meter data]** A whole house main meter data (in Watt)
   I would recommend at least 1 whole day of data
@@ -12,7 +14,7 @@ The library is reproduced for those who requires only a load disaggregation func
   Can be more than 1 appliance type, but the more number of appliance meter data you have, the better accurate result will be.
 4. **[testing house main meter data]** Another house main meter data (in Watt)
 
-# Beginners Guide
+# Beginner Guide
 1. importing the desired model
   - download desired model file from the repo and place into the same folder with your python file
   - import the desired model in your python file
@@ -52,7 +54,17 @@ The library is reproduced for those who requires only a load disaggregation func
    fhmm.save("fhmm_trained_model")
 ```
 
+  - you will get a file containing model you have trained with the extension of pkl (from pickle)
+  - you can load this mode to use later from function fhmm.load()
+  
 4. disaggregating the testing house data with the model
   - call function disaggregate()
   - disaggregate() requires dataframe containing timestamp and power columns
   - timestamp column should be the same Unix Epoc timestamp format (10 digit)
+  - the output of disaggregate() will be a dataframe containing a result of the disaggregate data. each column contains each appliance trained in your model
+  
+```python
+   prediction = fhmm.disaggregate(df)
+```
+  - try prediction.plot() for a quick graph plot
+  - that is it
