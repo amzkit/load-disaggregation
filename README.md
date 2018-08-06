@@ -8,6 +8,8 @@ For those who requires only a load disaggregation function in NILMTK, Load-disag
 
 I was looking for a solution to disaggregate loads and found NILMTK to be an interesting solution for my needs. But with limited documents on NILMTK for a newbie stage like me, I have to spend lots of time to understand the toolkit, installing environment, learning how to make a dataset for NILMTK, to use jupyter notebook, etc. I found the toolkit has a lot of embeded features that it is not related to the load disaggregation stuff that I was looking for. The purpose of the toolkit is far beyond than just disaggregating loads. This is why I think it would be useful to reproduce just the disaggregation part. I hope this library will save time for any other beginner who is taking the same path as I do.
 
+**This work is supported by Robert Gordon University**
+
 # Requirements
 1. Python 3.6 (haven't tested in Python 2)
 2. **[training house main meter data]** A whole house main meter data (in Watt)
