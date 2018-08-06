@@ -223,71 +223,9 @@ class CO():
             'training_metadata': meter})
         print(" [train_on_chunk] Done training!")
         
-    def disaggregate(self, mains, output_datastore,**load_kwargs):
-        '''Disaggregate mains according to the model learnt previously.
-
-        Parameters
-        ----------
-        mains : nilmtk.ElecMeter or nilmtk.MeterGroup
-        output_datastore : instance of nilmtk.DataStore subclass
-            For storing power predictions from disaggregation algorithm.
-        sample_period : number, optional
-            The desired sample period in seconds.  Set to 60 by default.
-        sections : TimeFrameGroup, optional
-            Set to mains.good_sections() by default.
-        **load_kwargs : key word arguments
-            Passed to `mains.power_series(**kwargs)`
-        '''
-        load_kwargs = self._pre_disaggregation_checks(load_kwargs)
-
-        load_kwargs.setdefault('sample_period', 60)
-        load_kwargs.setdefault('sections', mains.good_sections())
-
-        timeframes = []
-        building_path = '/building{}'.format(mains.building())
-        mains_data_location = building_path + '/elec/meter1'
-        data_is_available = False
-
-        for chunk in mains.power_series(**load_kwargs):
-            # Check that chunk is sensible size
-            if len(chunk) < self.MIN_CHUNK_LENGTH:
-                continue
-
-            # Record metadata
-            timeframes.append(chunk.timeframe)
-            measurement = chunk.name
-
-            appliance_powers = self.disaggregate_chunk(chunk)
-
-            for i, model in enumerate(self.model):
-                appliance_power = appliance_powers.iloc[:, i]
-                if len(appliance_power) == 0:
-                    continue
-                data_is_available = True
-                cols = pd.MultiIndex.from_tuples([chunk.name])
-                meter_instance = model['training_metadata'].instance()
-                df = pd.DataFrame(
-                    appliance_power.values, index=appliance_power.index,
-                    columns=cols)
-                key = '{}/elec/meter{}'.format(building_path, meter_instance)
-                output_datastore.append(key, df)
-
-            # Copy mains data to disag output
-            mains_df = pd.DataFrame(chunk, columns=cols)
-            output_datastore.append(key=mains_data_location, value=mains_df)
-
-        if data_is_available:
-            self._save_metadata_for_disaggregation(
-                output_datastore=output_datastore,
-                sample_period=load_kwargs['sample_period'],
-                measurement=measurement,
-                timeframes=timeframes,
-                building=mains.building(),
-                meters=[d['training_metadata'] for d in self.model]
-            )
     
         
-    def disaggregate_chunk(self, mains):
+    def disaggregate(self, df):
         """In-memory disaggregation.
 
         Parameters
@@ -301,6 +239,9 @@ class CO():
             disaggregated appliance.  Column names are the integer index
             into `self.model` for the appliance in question.
         """
+        
+        mains = df['power']
+        
         if not self.model:
             raise RuntimeError(
                 "The model needs to be instantiated before"
