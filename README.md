@@ -34,7 +34,7 @@ I was looking for a solution to disaggregate loads and found NILMTK to be an int
   - the dataframe should have a timestamp column. this timestamp is a Unix Epoc timestamp format (10 digit)
   - the training dataframe should be similar to below dataframe
 ```python
-  print(df)
+  print(train_df)
         timestamp   power     app1     app2	app3
   0     1525689485  23.3      0        0	0
   1     1525689490  318.4     295.1    0	0
