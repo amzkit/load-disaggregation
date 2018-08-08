@@ -304,6 +304,10 @@ def _apply_clustering(X, max_num_clusters, exact_num_clusters=None):
 
     return k_means_cluster_centers[num_clus].flatten()
 
+def timeStamptoIndex(df):
+    df.index = df['timestamp']
+    return df
+
 class FHMM():
     """
     Attributes
@@ -386,7 +390,23 @@ class FHMM():
         """
         # See v0.1 code
         # for ideas of how to handle missing data in this code if needs be.
+        
+        # Check if timestamp columns exists
+        if not 'timestamp' in df:
+            print("[FHMM_model][disaggregate] Could not detect column \"timestamp\" in the given dataframe")
+            return
+        
+        # Check if power columns exists
+        if not 'power' in df:
+            print("[FHMM_model][disaggregate] Could not detect column \"timestamp\" in the given dataframe")
+            return 
+        
         test_mains = df['power']
+
+        #if 'timestamp' in df:
+            #df.index = df.timestamp
+            #df = df.drop(columns='timestamp')
+        
         # Array of learnt states
         learnt_states_array = []
         test_mains = test_mains.dropna()
@@ -413,8 +433,10 @@ class FHMM():
         prediction = pd.DataFrame(
             decoded_power_array[0], index=test_mains.index)
 
-        return prediction
+        prediction.index = pd.to_datetime(df['timestamp'], unit='s')
 
+        return prediction
+    
     def save(self, filename):
         with open(filename+'.pkl', 'wb') as output:
             pickle.dump(self.model, output, pickle.HIGHEST_PROTOCOL)

@@ -2,10 +2,10 @@
 """
 Created on Thu Aug  2 15:54:47 2018
 
-@author: Kit
 """
 import numpy as np
 import pandas as pd
+import pickle
 
 def cluster(X, max_num_clusters=3, exact_num_clusters=None):
     '''Applies clustering on reduced data, 
@@ -239,6 +239,15 @@ class CO():
             disaggregated appliance.  Column names are the integer index
             into `self.model` for the appliance in question.
         """
+        # Check if timestamp columns exists
+        if not 'timestamp' in df:
+            print("[CO_model][disaggregate] Could not detect column \"timestamp\" in the given dataframe")
+            return
+        
+        # Check if power columns exists
+        if not 'power' in df:
+            print("[CO_model][disaggregate] Could not detect column \"timestamp\" in the given dataframe")
+            return 
         
         mains = df['power']
         
@@ -274,8 +283,7 @@ class CO():
         else:
             state_combinations = self.state_combinations
         """
-
-
+        
         state_combinations = self.state_combinations
 
         summed_power_of_each_combination = np.sum(state_combinations, axis=1)
@@ -295,7 +303,9 @@ class CO():
             column = pd.Series(predicted_power, index=mains.index, name=i)
             appliance_powers_dict[self.model[i]['training_metadata']] = column
         appliance_powers = pd.DataFrame(appliance_powers_dict, dtype='float32')
-        return appliance_powers        
+        appliance_powers.index = pd.to_datetime(df['timestamp'], unit='s')
+        return appliance_powers    
+    
     def _set_state_combinations_if_necessary(self):
         """Get centroids"""
         # If we import sklearn at the top of the file then auto doc fails.
@@ -304,3 +314,14 @@ class CO():
             from sklearn.utils.extmath import cartesian
             centroids = [model['states'] for model in self.model]
             self.state_combinations = cartesian(centroids)
+            
+            
+    def save(self, filename):
+        with open(filename+'.pkl', 'wb') as output:
+            pickle.dump(self.model, output, pickle.HIGHEST_PROTOCOL)
+            pickle.dump(self.state_combinations, output, pickle.HIGHEST_PROTOCOL)
+            
+    def load(self, filename):
+        with open(filename+'.pkl', 'rb') as input:
+            self.model = pickle.load(input)
+            self.state_combinations = pickle.load(input)
