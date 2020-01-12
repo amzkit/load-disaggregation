@@ -1,4 +1,4 @@
-# Load-disaggregation Python Library
+# Simple Load-disaggregation Python Library
 
 The goal of the library is to disaggregate an appliance load from the power meter reading. The library take a load disaggregation models provided in the [NILMTK Documentation](https://github.com/nilmtk/nilmtk/tree/master/docs/manual).
 
